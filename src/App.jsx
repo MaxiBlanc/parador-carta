@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { db } from './Firebase/config';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
-// Agregamos el link de Google Fonts directamente en el JS (o podés ponerlo en tu index.html)
-const fontLink = document.createElement('link');
-fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap';
-fontLink.rel = 'stylesheet';
-document.head.appendChild(fontLink);
+// Inyectamos Reset de CSS y Fuente Montserrat
+const styleTag = document.createElement('style');
+styleTag.innerHTML = `
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body, html {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #A2DED0; /* color.verdeFondo */
+  }
+`;
+document.head.appendChild(styleTag);
 
 function App() {
   const [categorias, setCategorias] = useState([]);
@@ -55,7 +66,6 @@ function App() {
                       }} 
                       onClick={() => toggleProducto(p.id)}
                     >
-                      {/* Agregamos textTransform uppercase para que sea igual a la foto */}
                       <span style={{
                         ...styles.itemName,
                         color: productoAbierto === p.id ? colors.blanco : colors.turquesaLogo
@@ -103,14 +113,17 @@ const styles = {
   container: {
     backgroundColor: colors.verdeFondo,
     minHeight: '100vh',
-    fontFamily: "'Montserrat', sans-serif", // Cambiamos la fuente a Montserrat
+    width: '100%',
+    fontFamily: "'Montserrat', sans-serif",
+    display: 'flex',
+    flexDirection: 'column'
   },
   header: {
     backgroundColor: colors.turquesaLogo,
     padding: '40px 20px',
     textAlign: 'center',
     color: colors.blanco,
-    marginBottom: '20px'
+    width: '100%'
   },
   logoText: { 
     margin: 0, 
@@ -126,21 +139,23 @@ const styles = {
     marginTop: '5px'
   },
   main: {
-    padding: '10px',
+    padding: '20px 15px',
     maxWidth: '500px',
-    margin: '0 auto'
+    width: '100%',
+    margin: '0 auto',
+    flex: 1
   },
-  section: { marginBottom: '40px' },
+  section: { marginBottom: '35px' },
   categoryContainer: {
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: '20px'
+    marginBottom: '15px'
   },
   categoryPill: {
     backgroundColor: colors.turquesaLogo,
     color: colors.blanco,
-    padding: '10px 30px',
+    padding: '8px 25px',
     borderRadius: '25px',
     fontWeight: '700',
     fontSize: '0.85rem',
@@ -149,68 +164,68 @@ const styles = {
   },
   itemContainer: {
     marginBottom: '10px',
-    textAlign: 'center' // Centramos los productos también para que las barras se vean prolijas
+    width: '100%'
   },
   productCard: {
-    display: 'inline-flex',
+    display: 'flex',
     flexDirection: 'column',
     borderRadius: '20px',
     width: '100%',
     transition: '0.3s'
   },
   productBar: {
-    padding: '12px 25px',
+    padding: '12px 20px',
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     cursor: 'pointer',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+    boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+    width: '100%'
   },
   itemName: { 
-    fontSize: '0.9rem', 
+    fontSize: '0.85rem', 
     fontWeight: '700', 
-    textTransform: 'uppercase', // Igual a la imagen
-    letterSpacing: '1px'
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px'
   },
   itemPrice: { 
-    fontSize: '1rem', 
+    fontSize: '0.95rem', 
     fontWeight: '700' 
   },
   itemDetail: {
-    padding: '20px',
+    padding: '15px',
     display: 'flex',
     alignItems: 'center',
-    gap: '15px',
+    gap: '12px',
     textAlign: 'left'
   },
   descriptionCol: { flex: 1.5 },
   imageCol: { flex: 1, display: 'flex', justifyContent: 'center' },
   itemImage: {
-    width: '100px',
-    height: '100px',
+    width: '85px',
+    height: '85px',
     objectFit: 'cover',
-    borderRadius: '15px',
-    // EL MARQUITO:
-    border: `3px solid ${colors.turquesaLogo}`, // Agrega el borde con el color del logo
+    borderRadius: '12px',
+    border: `2px solid ${colors.turquesaLogo}`,
     boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
-    boxSizing: 'border-box' // Asegura que el borde no agrande la imagen
+    boxSizing: 'border-box'
   },
   itemDescription: {
-    fontSize: '0.8rem',
-    color: colors.grisOscuroTexto,
+    fontSize: '0.75rem',
+    color: colors.verdeOscuroTexto,
     margin: 0,
-    lineHeight: '1.5',
+    lineHeight: '1.4',
     fontWeight: '500',
     fontStyle: 'italic'
   },
   footer: { 
     textAlign: 'center', 
-    padding: '40px', 
-    color: colors.blanco, 
-    fontSize: '0.75rem', 
+    padding: '30px 20px', 
+    color: colors.verdeOscuroTexto, 
+    fontSize: '0.7rem', 
     fontWeight: '600',
-    letterSpacing: '1px'
+    opacity: 0.8
   }
 };
 
