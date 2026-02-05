@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase/config'; // Asegurate que sea minúscula si ya lo corregiste
+import { db } from './Firebase/config'; // Asegurate que sea minúscula si ya lo corregiste
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 // Inyectamos Reset de CSS y Fuente Montserrat
