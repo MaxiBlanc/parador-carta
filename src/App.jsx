@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './Firebase/config';
+import { db } from './firebase/config'; // Asegurate que sea minúscula si ya lo corregiste
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 // Inyectamos Reset de CSS y Fuente Montserrat
@@ -13,8 +13,10 @@ styleTag.innerHTML = `
   }
   body, html {
     width: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
-    background-color: #A2DED0; /* color.verdeFondo */
+    background-color: #A2DED0;
   }
 `;
 document.head.appendChild(styleTag);
@@ -113,17 +115,21 @@ const styles = {
   container: {
     backgroundColor: colors.verdeFondo,
     minHeight: '100vh',
-    width: '100%',
+    width: '100vw',
     fontFamily: "'Montserrat', sans-serif",
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center', // CENTRADO HORIZONTAL GLOBAL
   },
   header: {
     backgroundColor: colors.turquesaLogo,
     padding: '40px 20px',
     textAlign: 'center',
     color: colors.blanco,
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   },
   logoText: { 
     margin: 0, 
@@ -140,12 +146,16 @@ const styles = {
   },
   main: {
     padding: '20px 15px',
-    maxWidth: '500px',
     width: '100%',
-    margin: '0 auto',
-    flex: 1
+    maxWidth: '500px', // Limita el ancho en pantallas grandes pero permite centrar en móviles
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column'
   },
-  section: { marginBottom: '35px' },
+  section: { 
+    marginBottom: '35px',
+    width: '100%' 
+  },
   categoryContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -162,15 +172,24 @@ const styles = {
     textTransform: 'uppercase',
     letterSpacing: '1px'
   },
+  menuList: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
   itemContainer: {
-    marginBottom: '10px',
-    width: '100%'
+    marginBottom: '12px',
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center'
   },
   productCard: {
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '20px',
-    width: '100%',
+    width: '100%', // Ocupa el ancho del main
+    maxWidth: '400px', // Para que no se estire de más en tablets
     transition: '0.3s'
   },
   productBar: {
@@ -225,7 +244,8 @@ const styles = {
     color: colors.verdeOscuroTexto, 
     fontSize: '0.7rem', 
     fontWeight: '600',
-    opacity: 0.8
+    opacity: 0.8,
+    width: '100%'
   }
 };
 
