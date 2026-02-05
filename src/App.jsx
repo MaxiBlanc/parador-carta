@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase/config';
+import { db } from './Firebase/config';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 
 // Agregamos el link de Google Fonts directamente en el JS (o podés ponerlo en tu index.html)
