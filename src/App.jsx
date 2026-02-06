@@ -44,9 +44,14 @@ function App() {
   </div>
 )}
 
-      <header className="header">
+      {/* <header className="header">
         <h1 className="logo-text">INKIER</h1>
         <p className="sub-text">PARADOR</p>
+      </header> */}
+
+      <header className="header">
+        {/* Reemplazamos el texto por la imagen del logo */}
+        <img src="/vite.jpeg" alt="Logo Parador Inkier" className="header-logo" />
       </header>
 
       <main className="main-content">

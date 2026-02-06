@@ -31,21 +31,33 @@ body, html {
 }
 
 /* HEADER */
+/* App.css */
+
 .header {
   background-color: var(--turquesa-logo);
-  padding: 40px 20px;
+  padding: 30px 20px; /* Reduje un poco el padding vertical */
   text-align: center;
   color: var(--blanco);
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px; /* Espacio entre el logo y el texto */
+}
+
+.header-logo {
+  width: 120px; /* Ajustá el tamaño a tu gusto */
+  height: 120px;
+  object-fit: cover; /* Mantiene la proporción si la imagen no es cuadrada */
+  border-radius: 50%; /* Hace que el logo sea circular como en las redes sociales */
+  border: 3px solid var(--blanco);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .logo-text {
   margin: 0;
-  font-size: 2.8rem;
-  letter-spacing: 6px;
+  font-size: 2.2rem; /* Achiqué un poco el texto ya que ahora está el logo */
+  letter-spacing: 4px;
   font-weight: 300;
 }
 
