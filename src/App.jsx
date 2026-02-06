@@ -51,7 +51,7 @@ function App() {
 
       <header className="header">
         {/* Reemplazamos el texto por la imagen del logo */}
-        <img src="/vite.jpeg" alt="Logo Parador Inkier" className="header-logo" />
+        <img src="/vite1.png" alt="Logo Parador Inkier" className="header-logo" />
       </header>
 
       <main className="main-content">
