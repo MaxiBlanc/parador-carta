@@ -221,3 +221,52 @@ body, html {
   opacity: 0.8;
   width: 100%;
 }
+
+/* App.css - Nuevos estilos para el modal de imagen */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Fondo negro traslúcido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Por encima de todo */
+  padding: 20px;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-full {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 15px;
+  border: 3px solid var(--blanco);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.close-button {
+  margin-top: 20px;
+  background-color: var(--turquesa-logo);
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}

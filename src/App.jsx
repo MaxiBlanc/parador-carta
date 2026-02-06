@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './Firebase/config';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
-import './App.css'; // Importamos los estilos optimizados
+import './App.css';
 
 function App() {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
   const [productoAbierto, setProductoAbierto] = useState(null);
+  const [imagenAmpliada, setImagenAmpliada] = useState(null); // Estado para el modal
 
   useEffect(() => {
     const qCat = query(collection(db, "categorias"), orderBy("nombre", "asc"));
@@ -30,6 +31,16 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* MODAL DE IMAGEN AMPLIA */}
+      {imagenAmpliada && (
+        <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={imagenAmpliada} className="image-full" alt="Zoom" />
+            <button className="close-button" onClick={() => setImagenAmpliada(null)}>Cerrar</button>
+          </div>
+        </div>
+      )}
+
       <header className="header">
         <h1 className="logo-text">INKIER</h1>
         <p className="sub-text">PARADOR</p>
@@ -38,9 +49,7 @@ function App() {
       <main className="main-content">
         {categorias.map(cat => (
           <section key={cat.id} className="menu-section">
-            <div className="category-container">
-              <div className="category-pill">{cat.nombre}</div>
-            </div>
+            <div className="category-pill">{cat.nombre}</div>
             
             <div className="menu-list">
               {productos.filter(p => p.categoria === cat.nombre).map(p => (
@@ -54,16 +63,10 @@ function App() {
                       style={{ backgroundColor: productoAbierto === p.id ? 'var(--turquesa-logo)' : 'var(--blanco)' }}
                       onClick={() => toggleProducto(p.id)}
                     >
-                      <span 
-                        className="item-name"
-                        style={{ color: productoAbierto === p.id ? 'var(--blanco)' : 'var(--turquesa-logo)' }}
-                      >
+                      <span className="item-name" style={{ color: productoAbierto === p.id ? 'var(--blanco)' : 'var(--turquesa-logo)' }}>
                         {p.nombre}
                       </span>
-                      <span 
-                        className="item-price"
-                        style={{ color: productoAbierto === p.id ? 'var(--blanco)' : 'var(--turquesa-logo)' }}
-                      >
+                      <span className="item-price" style={{ color: productoAbierto === p.id ? 'var(--blanco)' : 'var(--turquesa-logo)' }}>
                         ${p.precio}
                       </span>
                     </div>
@@ -74,7 +77,14 @@ function App() {
                           <p className="item-description">{p.descripcion || "Elaboración artesanal."}</p>
                         </div>
                         <div className="image-col">
-                          {p.imagen && <img src={p.imagen} alt={p.nombre} className="item-image" />}
+                          {p.imagen && (
+                            <img 
+                              src={p.imagen} 
+                              alt={p.nombre} 
+                              className="item-image" 
+                              onClick={() => setImagenAmpliada(p.imagen)} // Ampliar al clickear
+                            />
+                          )}
                         </div>
                       </div>
                     )}
