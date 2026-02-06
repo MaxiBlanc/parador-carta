@@ -35,14 +35,14 @@ body, html {
 
 .header {
   background-color: var(--turquesa-logo);
-  padding: 30px 20px; /* Reduje un poco el padding vertical */
+  padding: 20px 10px; /* Reduje un poco el padding vertical */
   text-align: center;
   color: var(--blanco);
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px; /* Espacio entre el logo y el texto */
+  gap: 10px; /* Espacio entre el logo y el texto */
 }
 
 .header-logo {
