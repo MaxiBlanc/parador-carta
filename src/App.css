@@ -3,6 +3,7 @@
 
 :root {
   --turquesa-logo: #4DB9A8;
+  --turquesa-logo-fondo: #3F9D8F;
   --verde-fondo: #A2DED0;
   --blanco: #FFFFFF;
   --verde-oscuro-texto: #2C5F55;
@@ -34,7 +35,7 @@ body, html {
 /* App.css */
 
 .header {
-  background-color: var(--turquesa-logo);
+  background-color: var(--turquesa-logo-fondo);
   padding: 5px 5px; /* Reduje un poco el padding vertical */
   text-align: center;
   color: var(--blanco);
