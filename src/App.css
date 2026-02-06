@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
 :root {
-  --turquesa-logo: #3F9D8F;
+  --turquesa-logo: #4DB9A8;
   --verde-fondo: #A2DED0;
   --blanco: #FFFFFF;
   --verde-oscuro-texto: #2C5F55;
@@ -42,12 +42,12 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px; /* Espacio entre el logo y el texto */
+  gap: 3px; /* Espacio entre el logo y el texto */
 }
 
 .header-logo {
-  width: 150px; /* Ajustá el tamaño a tu gusto */
-  height: 150px;
+  width: 120px; /* Ajustá el tamaño a tu gusto */
+  height: 120px;
   object-fit: cover; /* Mantiene la proporción si la imagen no es cuadrada */
   border-radius: 50%; /* Hace que el logo sea circular como en las redes sociales */
   border: 3px solid var(--blanco);
