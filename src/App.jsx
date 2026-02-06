@@ -33,13 +33,16 @@ function App() {
     <div className="app-container">
       {/* MODAL DE IMAGEN AMPLIA */}
       {imagenAmpliada && (
-        <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={imagenAmpliada} className="image-full" alt="Zoom" />
-            <button className="close-button" onClick={() => setImagenAmpliada(null)}>Cerrar</button>
-          </div>
-        </div>
-      )}
+  <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
+    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <img src={imagenAmpliada} className="image-full" alt="Zoom" />
+    </div>
+    {/* El botón afuera del modal-content para que no moleste el cuadrado */}
+    <button className="close-button" onClick={() => setImagenAmpliada(null)}>
+      Cerrar
+    </button>
+  </div>
+)}
 
       <header className="header">
         <h1 className="logo-text">INKIER</h1>

@@ -1,47 +1,3 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
-
 /* App.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
 
@@ -74,6 +30,7 @@ body, html {
   align-items: center;
 }
 
+/* HEADER */
 .header {
   background-color: var(--turquesa-logo);
   padding: 40px 20px;
@@ -100,6 +57,7 @@ body, html {
   margin-top: 5px;
 }
 
+/* MAIN CONTENT & SECTIONS */
 .main-content {
   padding: 20px 15px;
   width: 100%;
@@ -110,7 +68,7 @@ body, html {
 }
 
 .menu-section {
-  margin-bottom: 50px; /* Aumentamos el espacio entre el final de una lista y la siguiente pill */
+  margin-bottom: 50px; /* Espacio generoso entre categorías */
   width: 100%;
 }
 
@@ -121,55 +79,12 @@ body, html {
   border-radius: 25px;
   font-weight: 700;
   text-transform: uppercase;
-  margin: 0 auto 25px auto; /* Añadimos margen inferior para separar de los productos */
+  margin: 0 auto 25px auto; /* Espacio entre la pill y el primer producto */
   display: table;
   letter-spacing: 1px;
 }
 
-/* MODAL CON IMAGEN CUADRADA */
-.modal-content {
-  position: relative;
-  width: 90%;
-  max-width: 450px; /* Tamaño máximo para que no sea gigante en tablets */
-  aspect-ratio: 1 / 1; /* FUERZA EL CONTENEDOR A SER CUADRADO */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-full {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* LLENA EL CUADRADO SIN DEFORMAR LA IMAGEN */
-  border-radius: 20px;
-  border: 4px solid var(--blanco);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.close-button {
-  position: absolute;
-  bottom: -60px; /* Lo posicionamos debajo del cuadrado para que no tape la comida */
-  background-color: var(--turquesa-logo);
-  color: white;
-  border: none;
-  padding: 10px 30px;
-  border-radius: 25px;
-  font-weight: 700;
-  cursor: pointer;
-  text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.category-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-
-
+/* PRODUCT LIST & CARDS */
 .menu-list {
   width: 100%;
   display: flex;
@@ -232,13 +147,15 @@ body, html {
   justify-content: center; 
 }
 
+/* MINIATURA */
 .item-image {
   width: 85px;
   height: 85px;
-  object-fit: cover;
+  object-fit: cover; /* Recorte cuadrado */
   border-radius: 12px;
   border: 2px solid var(--turquesa-logo);
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: zoom-in;
 }
 
 .item-description {
@@ -250,53 +167,42 @@ body, html {
   font-style: italic;
 }
 
-.footer {
-  text-align: center;
-  padding: 30px 20px;
-  color: var(--verde-oscuro-texto);
-  font-size: 0.7rem;
-  font-weight: 600;
-  opacity: 0.8;
-  width: 100%;
-}
-
-/* App.css - Nuevos estilos para el modal de imagen */
-
+/* MODAL (ZOOM CUADRADO) */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.9); /* Fondo negro traslúcido */
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 2000; /* Por encima de todo */
+  z-index: 2000;
   padding: 20px;
 }
 
 .modal-content {
   position: relative;
-  max-width: 90%;
-  max-height: 80%;
+  width: 320px; /* Tamaño fijo cuadrado */
+  height: 320px; /* Tamaño fijo cuadrado */
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .image-full {
   width: 100%;
-  height: auto;
-  max-height: 70vh;
-  object-fit: contain;
-  border-radius: 15px;
-  border: 3px solid var(--blanco);
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  height: 100%;
+  object-fit: cover; /* Mismo recorte que la miniatura */
+  border-radius: 20px;
+  border: 4px solid var(--blanco);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .close-button {
-  margin-top: 20px;
+  margin-top: 30px;
   background-color: var(--turquesa-logo);
   color: white;
   border: none;
@@ -307,4 +213,15 @@ body, html {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--verde-oscuro-texto);
+  font-size: 0.7rem;
+  font-weight: 600;
+  opacity: 0.8;
+  width: 100%;
 }
