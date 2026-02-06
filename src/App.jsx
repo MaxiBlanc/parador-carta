@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { db } from './firebase/config';
+import { db } from './Firebase/config';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import './App.css'; // Importamos los estilos optimizados
 
