@@ -35,7 +35,7 @@ body, html {
 
 .header {
   background-color: var(--turquesa-logo);
-  padding: 20px 10px; /* Reduje un poco el padding vertical */
+  padding: 5px 5px; /* Reduje un poco el padding vertical */
   text-align: center;
   color: var(--blanco);
   width: 100%;
@@ -46,8 +46,8 @@ body, html {
 }
 
 .header-logo {
-  width: 120px; /* Ajustá el tamaño a tu gusto */
-  height: 120px;
+  width: 150px; /* Ajustá el tamaño a tu gusto */
+  height: 150px;
   object-fit: cover; /* Mantiene la proporción si la imagen no es cuadrada */
   border-radius: 50%; /* Hace que el logo sea circular como en las redes sociales */
   border: 3px solid var(--blanco);
