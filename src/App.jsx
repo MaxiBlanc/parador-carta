@@ -10,19 +10,24 @@ function App() {
   const [imagenAmpliada, setImagenAmpliada] = useState(null); // Estado para el modal
 
 useEffect(() => {
-  // 1. Categorías: Ordenadas por 'fecha' (o el nombre de tu campo de creación)
-  // Si no tienes fecha, cámbialo por el campo que prefieras
-  const qCat = query(collection(db, "categorias"), orderBy("fecha", "asc")); 
-  
-  const unsubscribeCat = onSnapshot(qCat, (snap) => {
-    setCategorias(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  // 1. Escuchar Categorías y ordenarlas por el campo 'nro'
+  const unsubscribeCat = onSnapshot(collection(db, "categorias"), (snap) => {
+    const listaCat = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    
+    // Ordenamos de menor a mayor según el campo 'nro'
+    listaCat.sort((a, b) => (a.nro || 0) - (b.nro || 0));
+    
+    setCategorias(listaCat);
   });
 
-  // 2. Productos: Ordenados por 'nombre' de la A a la Z
-  const qProd = query(collection(db, "productos"), orderBy("nombre", "asc"));
-  
-  const unsubscribeProd = onSnapshot(qProd, (snap) => {
-    setProductos(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  // 2. Escuchar Productos y ordenarlos alfabéticamente
+  const unsubscribeProd = onSnapshot(collection(db, "productos"), (snap) => {
+    const listaProd = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    
+    // Ordenamos alfabéticamente por 'nombre'
+    listaProd.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    
+    setProductos(listaProd);
   });
 
   return () => {
