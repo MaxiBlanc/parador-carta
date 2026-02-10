@@ -9,21 +9,27 @@ function App() {
   const [productoAbierto, setProductoAbierto] = useState(null);
   const [imagenAmpliada, setImagenAmpliada] = useState(null); // Estado para el modal
 
-  useEffect(() => {
-    const qCat = query(collection(db, "categorias"), orderBy("nombre", "asc"));
-    const unsubscribeCat = onSnapshot(qCat, (snap) => {
-      setCategorias(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    });
+useEffect(() => {
+  // 1. Categorías: Ordenadas por 'fecha' (o el nombre de tu campo de creación)
+  // Si no tienes fecha, cámbialo por el campo que prefieras
+  const qCat = query(collection(db, "categorias"), orderBy("fecha", "asc")); 
+  
+  const unsubscribeCat = onSnapshot(qCat, (snap) => {
+    setCategorias(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  });
 
-    const unsubscribeProd = onSnapshot(collection(db, "productos"), (snap) => {
-      setProductos(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
-    });
+  // 2. Productos: Ordenados por 'nombre' de la A a la Z
+  const qProd = query(collection(db, "productos"), orderBy("nombre", "asc"));
+  
+  const unsubscribeProd = onSnapshot(qProd, (snap) => {
+    setProductos(snap.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+  });
 
-    return () => {
-      unsubscribeCat();
-      unsubscribeProd();
-    };
-  }, []);
+  return () => {
+    unsubscribeCat();
+    unsubscribeProd();
+  };
+}, []);
 
   const toggleProducto = (id) => {
     setProductoAbierto(productoAbierto === id ? null : id);
