@@ -1,40 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './Firebase/config';
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import './App.css';
 
 function App() {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
   const [productoAbierto, setProductoAbierto] = useState(null);
-  const [imagenAmpliada, setImagenAmpliada] = useState(null); // Estado para el modal
+  const [imagenAmpliada, setImagenAmpliada] = useState(null);
+  
+  // Estado para manejar qué categoría está seleccionada y visible
+  const [categoriaActiva, setCategoriaActiva] = useState(null);
 
-useEffect(() => {
-  // 1. Escuchar Categorías y ordenarlas por el campo 'nro'
-  const unsubscribeCat = onSnapshot(collection(db, "categorias"), (snap) => {
-    const listaCat = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-    
-    // Ordenamos de menor a mayor según el campo 'nro'
-    listaCat.sort((a, b) => (a.nro || 0) - (b.nro || 0));
-    
-    setCategorias(listaCat);
-  });
+  useEffect(() => {
+    // 1. Escuchar Categorías
+    const unsubscribeCat = onSnapshot(collection(db, "categorias"), (snap) => {
+      const listaCat = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      listaCat.sort((a, b) => (a.nro || 0) - (b.nro || 0));
+      setCategorias(listaCat);
+      
+      // Si no hay categoría activa, seleccionamos la primera por defecto
+      if (listaCat.length > 0 && !categoriaActiva) {
+        setCategoriaActiva(listaCat[0].nombre);
+      }
+    });
 
-  // 2. Escuchar Productos y ordenarlos alfabéticamente
-  const unsubscribeProd = onSnapshot(collection(db, "productos"), (snap) => {
-    const listaProd = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-    
-    // Ordenamos alfabéticamente por 'nombre'
-    listaProd.sort((a, b) => a.nombre.localeCompare(b.nombre));
-    
-    setProductos(listaProd);
-  });
+    // 2. Escuchar Productos
+    const unsubscribeProd = onSnapshot(collection(db, "productos"), (snap) => {
+      const listaProd = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      listaProd.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      setProductos(listaProd);
+    });
 
-  return () => {
-    unsubscribeCat();
-    unsubscribeProd();
-  };
-}, []);
+    return () => {
+      unsubscribeCat();
+      unsubscribeProd();
+    };
+  }, [categoriaActiva]);
 
   const toggleProducto = (id) => {
     setProductoAbierto(productoAbierto === id ? null : id);
@@ -44,34 +46,42 @@ useEffect(() => {
     <div className="app-container">
       {/* MODAL DE IMAGEN AMPLIA */}
       {imagenAmpliada && (
-  <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <img src={imagenAmpliada} className="image-full" alt="Zoom" />
-    </div>
-    {/* El botón afuera del modal-content para que no moleste el cuadrado */}
-    <button className="close-button" onClick={() => setImagenAmpliada(null)}>
-      Cerrar
-    </button>
-  </div>
-)}
-
-      {/* <header className="header">
-        <h1 className="logo-text">INKIER</h1>
-        <p className="sub-text">PARADOR</p>
-      </header> */}
+        <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img src={imagenAmpliada} className="image-full" alt="Zoom" />
+          </div>
+          <button className="close-button" onClick={() => setImagenAmpliada(null)}>
+            Cerrar
+          </button>
+        </div>
+      )}
 
       <header className="header">
-        {/* Reemplazamos el texto por la imagen del logo */}
         <img src="/vite.jpeg" alt="Logo Parador Inkier" className="header-logo" />
       </header>
 
-      <main className="main-content">
+      {/* NAV DE CATEGORÍAS DESLIZABLE */}
+      <nav className="categories-nav">
         {categorias.map(cat => (
-          <section key={cat.id} className="menu-section">
-            <div className="category-pill">{cat.nombre}</div>
-            
-            <div className="menu-list">
-              {productos.filter(p => p.categoria === cat.nombre).map(p => (
+          <button 
+            key={cat.id} 
+            className={`category-item ${categoriaActiva === cat.nombre ? 'active' : ''}`}
+            onClick={() => {
+              setCategoriaActiva(cat.nombre);
+              setProductoAbierto(null); // Cerramos cualquier acordeón al cambiar de categoría
+            }}
+          >
+            {cat.nombre}
+          </button>
+        ))}
+      </nav>
+
+      <main className="main-content">
+        <section className="menu-section">
+          <div className="menu-list">
+            {productos
+              .filter(p => p.categoria === categoriaActiva)
+              .map(p => (
                 <div key={p.id} className="item-container">
                   <div 
                     className="product-card"
@@ -101,7 +111,7 @@ useEffect(() => {
                               src={p.imagen} 
                               alt={p.nombre} 
                               className="item-image" 
-                              onClick={() => setImagenAmpliada(p.imagen)} // Ampliar al clickear
+                              onClick={() => setImagenAmpliada(p.imagen)} 
                             />
                           )}
                         </div>
@@ -110,9 +120,8 @@ useEffect(() => {
                   </div>
                 </div>
               ))}
-            </div>
-          </section>
-        ))}
+          </div>
+        </section>
       </main>
 
       <footer className="footer">
