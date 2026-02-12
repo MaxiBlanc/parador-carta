@@ -7,7 +7,7 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [productos, setProductos] = useState([]);
   const [productoAbierto, setProductoAbierto] = useState(null);
-  const [imagenAmpliada, setImagenAmpliada] = useState(null);
+  const [imagenAmpliada, setImagenAmpliada] = useState(null); // Ahora guardará el objeto del producto
   const [categoriaActiva, setCategoriaActiva] = useState(null);
 
   useEffect(() => {
@@ -36,7 +36,6 @@ function App() {
   const seleccionarCategoria = (nombre) => {
     setCategoriaActiva(nombre);
     setProductoAbierto(null);
-    // Opcional: scrollear levemente hacia arriba al cambiar
     window.scrollTo({ top: 120, behavior: 'smooth' });
   };
 
@@ -46,10 +45,13 @@ function App() {
 
   return (
     <div className="app-container">
+      {/* MODAL CON ETIQUETAS ENCIMADAS */}
       {imagenAmpliada && (
         <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={imagenAmpliada} className="image-full" alt="Zoom" />
+            <div className="modal-label-name">{imagenAmpliada.nombre}</div>
+            <img src={imagenAmpliada.imagen} className="image-full" alt="Zoom" />
+            <div className="modal-label-price">${imagenAmpliada.precio}</div>
           </div>
           <button className="close-button" onClick={() => setImagenAmpliada(null)}>Cerrar</button>
         </div>
@@ -108,7 +110,7 @@ function App() {
                               src={p.imagen} 
                               alt={p.nombre} 
                               className="item-image" 
-                              onClick={() => setImagenAmpliada(p.imagen)} 
+                              onClick={() => setImagenAmpliada(p)} 
                             />
                           )}
                         </div>
