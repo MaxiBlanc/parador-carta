@@ -246,3 +246,55 @@ body, html {
   font-size: 0.7rem;
   width: 100%;
 }
+
+/* BOTONES DE CONTACTO EN EL FOOTER */
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espacio entre los círculos */
+  margin-bottom: 20px; /* Espacio respecto al texto del footer */
+}
+
+.contact-circle {
+  width: 45px;
+  height: 45px;
+  background-color: var(--turquesa-logo);
+  border: 2px solid var(--blanco);
+  border-radius: 50%; /* Los hace círculos perfectos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto al hacer click o pasar el mouse */
+.contact-circle:active {
+  transform: scale(0.9);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.footer p {
+  margin-top: 10px;
+}
+
+.contact-circle, 
+.contact-circle:visited, 
+.contact-circle:active {
+  color: var(--blanco); /* Esto quita el violeta del enlace */
+  text-decoration: none;
+}
+
+.contact-circle svg {
+  fill: currentColor; /* Obliga al icono a usar el color del texto (blanco) */
+  display: block;
+}
+
+.contact-circle:hover {
+  background-color: var(--verde-fondo); /* Cambia el fondo al tocar */
+  color: var(--turquesa-logo); /* El icono se mantiene blanco */
+  transform: translateY(-3px); /* Pequeño salto hacia arriba */
+  border: 2px solid var(--turquesa-logo);
+}

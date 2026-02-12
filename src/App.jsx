@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { db } from './Firebase/config';
 import { collection, onSnapshot } from 'firebase/firestore';
 import './App.css';
+import { FaInstagram } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { SiGooglemaps } from "react-icons/si";
+import { IoMdStarHalf } from "react-icons/io";
 
 function App() {
   const [categorias, setCategorias] = useState([]);
@@ -124,6 +128,22 @@ function App() {
       </main>
 
       <footer className="footer">
+        {/* NUEVA SECCIÓN DE BOTONES DE CONTACTO */}
+        <div className="contact-buttons">
+          <a href="https://api.whatsapp.com/send/?phone=5493447573031&text&type=phone_number&app_absent=0&utm_source=ig" target="_blank" rel="noopener noreferrer" className="contact-circle" title="Contactanos aquí">
+            <FaWhatsapp />
+          </a>
+          <a href="https://l.instagram.com/?u=https%3A%2F%2Fmaps.app.goo.gl%2FEnjDbNDyJgtEcGnUA%3Fg_st%3Dic%26utm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnb84uuyEKf4_-WB12cFd1_QJYCXPHJqUitUTf_cAxt0YpBdD0jYnx69Nbzdk_aem_X6-SQuR7Tb0Psh6zZvB8Pw&e=AT0t_K3Pvfp0CbDh2iwjqdujn1o1lW8bD4b4mhMvV-zUVOaDxZ0ca5ugqeq9OKNcs15xV4LtTRbvOaS0baOsl6R5zruvGGoPbuP3gpRB2g" target="_blank" rel="noopener noreferrer" className="contact-circle" title="Encontranos aquí">
+            <SiGooglemaps/>
+          </a>
+          <a href="https://www.google.com/maps/place/Parador+Inkier/@-32.2277914,-58.1286286,17z/data=!4m8!3m7!1s0x95ae3300511df805:0xd0862712f3db6f3!8m2!3d-32.2277914!4d-58.1286286!9m1!1b1!16s%2Fg%2F11xcm7n3_6?entry=ttu&g_ep=EgoyMDI2MDIxMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="contact-circle" title="Calificanos aquí">
+            <IoMdStarHalf />
+          </a>
+          <a href="https://www.instagram.com/paradorinkiercolon/" target="_blank" rel="noopener noreferrer" className="contact-circle" title="Enterate de todo aquí">
+            <FaInstagram />
+          </a>
+        </div>
+
         <p>Parador Inkier - Colón, Entre Ríos 🌴</p>
       </footer>
     </div>
