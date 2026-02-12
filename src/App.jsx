@@ -8,24 +8,19 @@ function App() {
   const [productos, setProductos] = useState([]);
   const [productoAbierto, setProductoAbierto] = useState(null);
   const [imagenAmpliada, setImagenAmpliada] = useState(null);
-  
-  // Estado para manejar qué categoría está seleccionada y visible
   const [categoriaActiva, setCategoriaActiva] = useState(null);
 
   useEffect(() => {
-    // 1. Escuchar Categorías
     const unsubscribeCat = onSnapshot(collection(db, "categorias"), (snap) => {
       const listaCat = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       listaCat.sort((a, b) => (a.nro || 0) - (b.nro || 0));
       setCategorias(listaCat);
       
-      // Si no hay categoría activa, seleccionamos la primera por defecto
       if (listaCat.length > 0 && !categoriaActiva) {
         setCategoriaActiva(listaCat[0].nombre);
       }
     });
 
-    // 2. Escuchar Productos
     const unsubscribeProd = onSnapshot(collection(db, "productos"), (snap) => {
       const listaProd = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       listaProd.sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -38,21 +33,25 @@ function App() {
     };
   }, [categoriaActiva]);
 
+  const seleccionarCategoria = (nombre) => {
+    setCategoriaActiva(nombre);
+    setProductoAbierto(null);
+    // Opcional: scrollear levemente hacia arriba al cambiar
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+  };
+
   const toggleProducto = (id) => {
     setProductoAbierto(productoAbierto === id ? null : id);
   };
 
   return (
     <div className="app-container">
-      {/* MODAL DE IMAGEN AMPLIA */}
       {imagenAmpliada && (
         <div className="modal-overlay" onClick={() => setImagenAmpliada(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <img src={imagenAmpliada} className="image-full" alt="Zoom" />
           </div>
-          <button className="close-button" onClick={() => setImagenAmpliada(null)}>
-            Cerrar
-          </button>
+          <button className="close-button" onClick={() => setImagenAmpliada(null)}>Cerrar</button>
         </div>
       )}
 
@@ -60,21 +59,19 @@ function App() {
         <img src="/vite.jpeg" alt="Logo Parador Inkier" className="header-logo" />
       </header>
 
-      {/* NAV DE CATEGORÍAS DESLIZABLE */}
-      <nav className="categories-nav">
-        {categorias.map(cat => (
-          <button 
-            key={cat.id} 
-            className={`category-item ${categoriaActiva === cat.nombre ? 'active' : ''}`}
-            onClick={() => {
-              setCategoriaActiva(cat.nombre);
-              setProductoAbierto(null); // Cerramos cualquier acordeón al cambiar de categoría
-            }}
-          >
-            {cat.nombre}
-          </button>
-        ))}
-      </nav>
+      <div className="nav-wrapper">
+        <nav className="categories-nav">
+          {categorias.map(cat => (
+            <button 
+              key={cat.id} 
+              className={`category-item ${categoriaActiva === cat.nombre ? 'active' : ''}`}
+              onClick={() => seleccionarCategoria(cat.nombre)}
+            >
+              {cat.nombre}
+            </button>
+          ))}
+        </nav>
+      </div>
 
       <main className="main-content">
         <section className="menu-section">
